@@ -7,7 +7,6 @@ import {createNewsletter} from '../actions/newsletter';
 export class newsletterForm extends React.Component {
     onSubmit(values) {
         const {author, title, date, intro, underwraps, qaTitle, qaContent, communitySpotlightFeature, communitySpotlightContent, fieldTitle, fieldContent} = values;
-     console.log(values)
         return this.props.dispatch(createNewsletter(author, title, date, intro, underwraps, qaTitle, qaContent, communitySpotlightFeature,communitySpotlightContent, fieldTitle, fieldContent))
         .then(()=>this.props.dispatch(reset('newsletter')))
     }
@@ -32,7 +31,7 @@ export class newsletterForm extends React.Component {
                             component={Input}
                             name="date"
                             label="Date"
-                            validate={[required, nonEmpty, isDate]}
+                            validate={[required, nonEmpty]}
                         />
                        
                         <Field
@@ -83,7 +82,8 @@ export class newsletterForm extends React.Component {
                             name="fieldContent"
                             label="Field Content"
                         />
-                        <button type="submit"><i className="fas fa-plus-square"></i> Create Newsletter</button>
+                        <button type="submit"><i className="fas fa-plus-square">
+                        </i> Create Newsletter</button>
                     </form>
                 </div>
             );

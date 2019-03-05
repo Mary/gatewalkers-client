@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchAllNewsletters } from '../actions/newsletter';
 import { Link } from 'react-router-dom';
-
+import Header from './header';
 
 
 export class NewsContainer extends React.Component {
@@ -11,9 +11,10 @@ export class NewsContainer extends React.Component {
     }
 
     render() {
-        const listItems = this.props.newsletters.map((newsletter, i) => <li key={i}><Link to={`/info/${newsletter.id}`}>{newsletter.title}</Link></li>);
+        const listItems = this.props.newsletters.map((newsletter, i) => <li key={i}><Link to={`/newsletter/${newsletter.id}`}>{newsletter.title}</Link></li>);
         return (
             <div className="news-container">
+            <Header />
                 <ul><h1>Newsletters</h1>
                     {listItems}
                 </ul>

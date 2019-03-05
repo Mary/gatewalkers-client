@@ -17,7 +17,7 @@ export const fetchNewslettersError = error => ({
 
 export const fetchAllNewsletters = () => (dispatch) => {
     // const authToken = getState().authReducer.authToken;
-    return fetch(`${API_BASE_URL}/newsletters/all`, {
+    return fetch(`${API_BASE_URL}/news`, {
         method: 'GET',
         // headers: {
         //     Authorization: `Bearer ${authToken}`
@@ -87,7 +87,7 @@ export const deleteNewsletterError = error => ({
 export const deleteNewsletter = (id) => (dispatch, getState) => {
 
     const authToken = getState().authReducer.authToken;
-    return fetch(`${API_BASE_URL}/newsletters/delete/${id}`, {
+    return fetch(`${API_BASE_URL}/delete/${id}`, {
         method: 'DELETE',
         headers: {
             Authorization: `Bearer ${authToken}`

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import requiresLogin from './requires-login';
-// import Footer from './footer';
+import Footer from './footer';
 // import Logo from '../logo.png';
 
 
@@ -16,7 +16,7 @@ export function AdminDashboard(props) {
                 <Link className="black-button" to="/create-newsletter"><i className="fas fa-plus-square"></i>Create Newsletter</Link>
                 <Link className="black-button" to="/view-newsletters"><i className="fas fa-list-alt"></i>View Newsletters</Link>
             </div>
-            {/* <Footer { ...props}/> */}
+            <Footer { ...props}/>
         </React.Fragment>
     );
 }

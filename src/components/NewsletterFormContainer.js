@@ -1,6 +1,6 @@
 import React from 'react';
-// import Header from './header';
-// import Banner from './banner';
+
+import Header from './header';
 import { connect } from 'react-redux';
 import requiresLogin from './requires-login';
 
@@ -10,10 +10,12 @@ export function NewsletterFormContainer(props) {
 
     return (
         <React.Fragment>
-
+<Header />
             <div className="createNewsletter">
+            <h1>Newsletter Creation Form</h1>
                 <NewsletterForm />
             </div>
+      
         </React.Fragment>
     );
 }

@@ -10,6 +10,8 @@ import Newsletter from './Newsletter';
 import EditNewsletter from './AdminEditNewsletter';
 import AdminViewNewsletters from './AdminViewNewsletters'
 import NewsletterFormContainer from './NewsletterFormContainer';
+import InfoPage from './Admininfopage';
+import EndUserInfopage from './MoreInfo';
 
 
 
@@ -56,6 +58,8 @@ export class App extends React.Component {
                 <Route exact path="/edit-newsletter/:newsletterId" component={EditNewsletter} />
                 <Route exact path="/view-newsletters" component={AdminViewNewsletters} />
                 <Route exact path="/create-newsletter" component={NewsletterFormContainer} />
+                <Route exact path="/info/:newsletterId" component={InfoPage} />
+                <Route exact path="/newsletter/:newsletterId" component={EndUserInfopage} />
             </div>
         );
     }

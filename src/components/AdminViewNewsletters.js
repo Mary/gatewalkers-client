@@ -1,48 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import requiresLogin from './requires-login';
-import { Link } from 'react-router-dom';
 import { fetchAllNewsletters } from '../actions/newsletter';
-// import NavBar from './nav-bar';
+import { Link } from 'react-router-dom';
+import Header from './header';
 
-export class AdminViewNewsletters extends React.Component {
-  // componentDidMount() {
-  //   return this.props.dispatch(fetchAllNewsletters());
-  // }
-  render() {
 
-    const ActiveNewsletters = this.props.newsletters.map((newsletter, i) => {
-      return (
-        <li className="newsletter-box" key={`newsletter-${i}`}>
-        <Link className="a-box-2" to={`/edit-newsletter/${newsletter.id}`}>
-        {newsletter.title}</Link>
-        </li>
-      )
-    })
+export class NewsContainer extends React.Component {
+    componentDidMount() {
+        return this.props.dispatch(fetchAllNewsletters());
+    }
 
-    return (
-      <React.Fragment>
-      {/* <NavBar /> */}
-      <div className="outer-div">
-        <div className="header-section">
-        </div>
-        <div className="main-div">
-          <section className="newsletter-list">
-            <ul>
-              {ActiveNewsletters ? ActiveNewsletters : 'Loading.....'}
-            </ul>
-          </section>
-        </div>
-      </div>
-   </React.Fragment >
+    render() {
+        const listItems = this.props.newsletters.map((newsletter, i) => <li key={i}><span>{newsletter.date}</span><Link to={`/info/${newsletter.id}`}>{newsletter.id}</Link></li>);
+        return (
+            <div className="news-container">
+            <Header />
+                <ul><h1>Newsletters</h1>
+                    {listItems}
+                </ul>
+            </div>
         );
-  }
+    }
 }
+const mapStateToProps = state => ({
+    newsletters: state.newsletterReducer.newsletters
+});
 
-const mapStateToProps = state => {
-  return {
-    polls: state.newsletters.ActiveNewsletters
-  }
-};
-
-export default requiresLogin()(connect(mapStateToProps)(AdminViewNewsletters));
+export default connect(mapStateToProps)(NewsContainer);
