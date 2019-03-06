@@ -7,6 +7,7 @@ export default class Input extends React.Component {
     }
   }
   render() {
+ 
     const Element = this.props.element || 'input';
 
     let error;
@@ -33,7 +34,6 @@ export default class Input extends React.Component {
           id={this.props.input.id}
           type={this.props.type}
           ref={input => (this.input = input)}
-          
         >
           {this.props.children}
         </Element>

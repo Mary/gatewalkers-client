@@ -1,11 +1,9 @@
 import React from 'react';
 import Header from './header';
 import { connect } from 'react-redux';
-import { deleteNewsletter, fetchAllNewsletters, handleUpdate } from '../actions/newsletter';
+import { deleteNewsletter, fetchAllNewsletters,updateNewsletter } from '../actions/newsletter';
 import { Redirect } from 'react-router-dom';
-import Input from './input';
-import {required, nonEmpty, isTrimmed} from '../validators';
-import {Field, reduxForm, focus} from 'redux-form';
+import Bannerimg from '../logowhite.png'
 
 export class infoPage extends React.Component {
     state = {
@@ -22,99 +20,57 @@ export class infoPage extends React.Component {
                 })
             })
     }
-    onSubmit = () => {
-        //get the data from inputs
+    
+    handleSubmit = (e) => {
+        e.preventDefault()
+        const allValues={author: this.author.value, date: this.date.value}
+        this.props.dispatch(updateNewsletter(this.props.selectedNewsletter.id, allValues))
 
-        let title = this.title.current.value
-        //make request 
         this.setState({ editMode: false })
     }
     editNewsletter = () => {
         return (
-            <div className="newsletterForm">
-            <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
-                <Field
-                    component={Input}
-                    name="author"
-                    label="Author"
-               
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                <Field
-                    component={Input}
-                    name="title"
-                    label="Title"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                                        <Field
-                    component={Input}
-                    name="date"
-                    label="Date"
-                    validate={[required, nonEmpty]}
-                />
-               
-                <Field
-                    component={Input}
-                    element="textarea"
-                    name="intro"
-                    label="Intro"
-                />
-                <Field
-                    component={Input}
-                    element="textarea"
-                    name="underwraps"
-                    label="Under Wraps"
-                />
-                                        <Field
-                    component={Input}
-                    name="qaTitle"
-                    label="Q & A Title"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                                        <Field
-                    component={Input}
-                    element="textarea"
-                    name="qaContent"
-                    label="Q&A Content"
-                />
-                                                                <Field
-                    component={Input}
-                    name="communitySpotlightFeature"
-                    label="Community Spotlight Feature"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                    <Field
-                    component={Input}
-                    element="textarea"
-                    name="communitySpotlightContent"
-                    label="Community Spotlight Content"
-                />
-                                                                <Field
-                    component={Input}
-                    name="fieldTitle"
-                    label="Field Title"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                                        <Field
-                    component={Input}
-                    element="textarea"
-                    name="fieldContent"
-                    label="Field Content"
-                />
-                <button type="submit">
-                Update Newsletter</button>
-            </form>
-        </div>
-    
+            <>
+                <div className="banner">
+                    <img src={Bannerimg}></img>
+                </div>
+                <Header title={this.props.selectedNewsletter.title} />
+                <div className="newsletterForm">
+                    <form>
+                        <label>Author</label>
+                        <input
+                            name="author"
+                            defaultValue={this.props.selectedNewsletter.author}
+                            ref={(node)=>{this.author=node}}
+                        />
+                       
+                        <input
+                            name="date"
+                            label="Date"
+                            defaultValue={this.props.selectedNewsletter.date}
+                            ref={(node)=>{this.date=node}}
+                        />
+                        <input
+                            name="title"
+                            label="Title"
+                            defaultValue={this.props.selectedNewsletter.title}
+                        />
+                        <textarea
+                            name="intro"
+                            label="Intro"
+                            defaultValue={this.props.selectedNewsletter.intro}
+                        />
+                        <button type="submit" onClick={(e)=>{this.handleSubmit(e)}}>
+                            Update Newsletter</button>
+                    </form>
+                </div>
+            </>
         )
     }
 
 
     render() {
-
-        // if (this.state.submitted) {
-        //     return <Redirect to="/admindashboard" />
-        // }
+        
         const id = this.props.selectedNewsletter ? this.props.selectedNewsletter.id : null;
         let deleteNewsletterButton;
         let editNewsletterButton;
@@ -133,8 +89,10 @@ export class infoPage extends React.Component {
             <React.Fragment>
 
                 {this.state.submitted ? <Redirect to="/admindashboard" /> : null}
-
-                 <Header title={this.props.selectedNewsletter.title} />
+                <div className="banner">
+                    <img src={Bannerimg}></img>
+                </div>
+                <Header title={this.props.selectedNewsletter.title} />
                 {this.state.editMode ? this.editNewsletter() : (
                     this.props.selectedNewsletter && (
                         <div className="info">
@@ -152,7 +110,7 @@ export class infoPage extends React.Component {
                                 <dd>{this.props.selectedNewsletter.underwraps}</dd>
                                 <dt>{this.props.selectedNewsletter.qaTitle}:</dt>
                                 <dd>{this.props.selectedNewsletter.qaContent}</dd>
-                                <dt>{this.props.selectedNewsletter.communitySpotlightFeature}</dt>
+                                <dt>Community Spotlight: {this.props.selectedNewsletter.communitySpotlightFeature}</dt>
                                 <dd>{this.props.selectedNewsletter.communitySpotlightContent}</dd>
                                 <dt>{this.props.selectedNewsletter.fieldTitle}</dt>
                                 <dd>{this.props.selectedNewsletter.fieldContent}</dd>
@@ -171,15 +129,9 @@ export class infoPage extends React.Component {
 const mapStateToProps = (state, originalProps) => {
     const selectedNewsletter = state.newsletterReducer.newsletters.find(newsletter => newsletter.id === originalProps.match.params.newsletterId)
     return {
-        initialValues: {author: selectedNewsletter.author},
         username: state.authReducer.currentUser,
         selectedNewsletter
     };
 };
-export default reduxForm({
-    form: 'newsletter',
-    onSubmitFail: (errors, dispatch, err) =>{
-        console.log(err)
-        dispatch(focus('newsletter', Object.keys(errors)[0]))
-    }
-})( connect(mapStateToProps)(infoPage));
+export default (connect(mapStateToProps)(infoPage));
+

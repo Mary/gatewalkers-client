@@ -96,7 +96,46 @@ export const deleteNewsletter = (id) => (dispatch, getState) => {
         .then(res => normalizeResponseErrors(res))
         .then(() => dispatch(deleteNewsletterSuccess(id)))
         .catch(err => {
-            dispatch(fetchNewslettersError(err));
+            dispatch(deleteNewsletterError(err));
         });
 };
+
+/////Update Newsletter
+export const UPDATE_NEWSLETTER_SUCCESS = 'UPDATE_NEWSLETTER_SUCCESS';
+export const updateNewsletterSuccess = id => ({
+    type: UPDATE_NEWSLETTER_SUCCESS,
+    id
+});
+
+export const UPDATE_NEWSLETTER_ERROR = 'UPDATE_NEWSLETTER_ERROR';
+export const updateNewsletterError = error => ({
+    type: UPDATE_NEWSLETTER_ERROR,
+    error
+});
+
+
+
+
+
+export const updateNewsletter = (id, updatedNewsletter) => (dispatch, getState) => {
+
+    const authToken = getState().authReducer.authToken;
+    return fetch(`${API_BASE_URL}/update/${id}`, {
+        method: 'PUT',
+        headers: {
+            Authorization: `Bearer ${authToken}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          updatedNewsletter
+        })
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(() => dispatch(updateNewsletterSuccess(id)))
+        .catch(err => {
+            dispatch(updateNewsletterError(err));
+        });
+};
+
 

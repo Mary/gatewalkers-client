@@ -6,7 +6,6 @@ import LandingPage from './LandingPage';
 import News from './News';
 import AdminDashboard from './AdminDashboard';
 import PartTheVeil from './PartTheVeil';
-import EditNewsletter from './AdminEditNewsletter';
 import AdminViewNewsletters from './AdminViewNewsletters'
 import NewsletterFormContainer from './NewsletterFormContainer';
 import InfoPage from './Admininfopage';
@@ -53,7 +52,6 @@ export class App extends React.Component {
                 <Route exact path="/News" component={News} />
                 <Route exact path="/admindashboard" component={AdminDashboard} />
                 <Route exact path="/part-the-veil" component={PartTheVeil} />
-                <Route exact path="/edit-newsletter/:newsletterId" component={EditNewsletter} />
                 <Route exact path="/view-newsletters" component={AdminViewNewsletters} />
                 <Route exact path="/create-newsletter" component={NewsletterFormContainer} />
                 <Route exact path="/info/:newsletterId" component={InfoPage} />
