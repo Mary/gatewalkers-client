@@ -20,15 +20,26 @@ export class enduserinfoPage extends React.Component {
                 <Header title={this.props.selectedNewsletter.title} />
                 {this.props.selectedNewsletter &&
                     <div className="info">
-                        <dl>
-                            <dt>Title:</dt>
-                            <dd>{this.props.selectedNewsletter.title}</dd>
-                            <dt>Author: </dt>
-                            <dd>{this.props.selectedNewsletter.author}</dd>
-                            <dt>Intro:</dt>
-                            <dd>{this.props.selectedNewsletter.intro}</dd>
-                    
-                        </dl>
+                
+                         <dl>
+                                <dt>Title:</dt>
+                                <dd>{this.props.selectedNewsletter.title}</dd>
+                                <dt>Author: </dt>
+                                <dd>{this.props.selectedNewsletter.author}</dd>
+                                <dt>Date:</dt>
+                                <dd>{this.props.selectedNewsletter.date}</dd>
+                                <dt>Intro:</dt>
+                                <dd>{this.props.selectedNewsletter.intro}</dd>
+                                <dt>Under Wraps: </dt>
+                                <dd>{this.props.selectedNewsletter.underwraps}</dd>
+                                <dt>{this.props.selectedNewsletter.qaTitle}:</dt>
+                                <dd>{this.props.selectedNewsletter.qaContent}</dd>
+                                <dt>{this.props.selectedNewsletter.communitySpotlightFeature}</dt>
+                                <dd>{this.props.selectedNewsletter.communitySpotlightContent}</dd>
+                                <dt>{this.props.selectedNewsletter.fieldTitle}</dt>
+                                <dd>{this.props.selectedNewsletter.fieldContent}</dd>
+
+                            </dl>
                     </div>
                 }
             </React.Fragment>

@@ -9,8 +9,8 @@ export function Header(props) {
     let linkurl = (props.loggedIn) ? "/admindashboard" : "/";
     return (
         <div className="header">
+          <h1>{props.title}</h1> 
            <Link className="close-button" to={linkurl}>Home </Link>
-            <h1>{props.title}</h1> 
         </div>
     );
 }

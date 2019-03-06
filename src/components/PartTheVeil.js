@@ -13,7 +13,6 @@ export function PartTheVeil(props) {
     return (
         <React.Fragment>
             {/* <Banner/> */}
-            <Header title="Log In"/>
             <div className="part-the-veil">
                 <LoginForm />
             </div>

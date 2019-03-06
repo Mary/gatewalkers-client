@@ -3,6 +3,7 @@ import {Field, reduxForm, focus} from 'redux-form';
 import Input from './input';
 import {loginUser} from '../actions/auth';
 import {required, nonEmpty} from '../validators';
+import Header from './header';
 
 export class LogInForm extends React.Component {
     onSubmit(values) {
@@ -19,13 +20,17 @@ export class LogInForm extends React.Component {
             );
         }
         return (
+            <>
+         
             <form
                 className="login-form"
                 onSubmit={this.props.handleSubmit(values =>{
-                    console.log(values)
+                  
                     this.onSubmit(values)
                 }
                     )}>
+                    <Header />
+                       <h1>Login</h1>
                 {error}
                 <label htmlFor="email-address">Email Address</label>
                 <Field
@@ -48,6 +53,7 @@ export class LogInForm extends React.Component {
                 </button>
                 
             </form>
+            </>
         );
     }
 }

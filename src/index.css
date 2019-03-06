@@ -1,9 +1,11 @@
 body {
-  margin: 0;
-  padding: 0;
+  margin: 20px;
+  padding: 10px;
   font-family: 'Overpass', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display:flex;
+  justify-content: center;
 }
 h1{
   font-family: 'ZCOOL QingKe HuangYou', cursive;
@@ -14,6 +16,13 @@ code {
 }
 .logo{
   width:50%;
+}
+.landing-page{
+  padding-left:25%;
+  padding-top:10%;
+}
+.landing-page,h1{
+  justify-content: center;
 }
 a{
   background-color: #eb1676;
@@ -66,7 +75,7 @@ textarea{
   margin: 5px;
   padding:5px;
   height:100px;
-  width:25%;
+  width:100%;
 }
 textarea:focus { 
   border-bottom: 2px solid #48b2e8;
@@ -83,3 +92,29 @@ label{
 }
 
 
+.large-input{
+  width:100%;
+}
+dt{
+  font-size:20px;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+dd{
+  width:50%;
+  color:#757575;
+  text-align: justify;
+}
+.header{
+  display:flex;
+justify-content: space-between
+}
+.login-form{
+  padding-top:100%;
+}
+.news-container{
+  padding-top:10%;
+}
+.createNewsletter{
+  justify-content: left!important;
+}
