@@ -30,7 +30,7 @@ export class infoPage extends React.Component {
         const allValues = { title: this.title.value, author: this.author.value, date: this.date.value, intro: this.intro.value, underwraps: this.underwraps.value, qaTitle: this.qaTitle.value, qaContent: this.qaContent.value, communitySpotlightFeature: this.communitySpotlightFeature.value,  communitySpotlightContent: this.communitySpotlightContent.value, fieldTitle: this.fieldTitle.value, fieldContent: this.fieldContent.value }
         this.props.dispatch(updateNewsletter(this.props.selectedNewsletter.id, allValues))
         this.setState({ editMode: false })
-        this.forceUpdate();
+       
     }
     editNewsletter = () => {
         return (

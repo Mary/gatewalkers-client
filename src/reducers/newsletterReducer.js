@@ -23,6 +23,17 @@ const initialState = {
                         return newsletter.id !== action.id
                     })
                 }
+                case 'UPDATE_NEWSLETTER_SUCCESS':
+                return {
+                    ...state,
+                    newsletters: state.newsletters.map(newsletter=>{
+                        if(newsletter.id === action.newsletter.id){
+                            return action.newsletter;
+                        }
+                        return newsletter;
+                    })
+                }
+
             default:
                 return state
         }

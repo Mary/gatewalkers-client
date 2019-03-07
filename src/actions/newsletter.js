@@ -102,9 +102,9 @@ export const deleteNewsletter = (id) => (dispatch, getState) => {
 
 /////Update Newsletter
 export const UPDATE_NEWSLETTER_SUCCESS = 'UPDATE_NEWSLETTER_SUCCESS';
-export const updateNewsletterSuccess = id => ({
+export const updateNewsletterSuccess = newsletter => ({
     type: UPDATE_NEWSLETTER_SUCCESS,
-    id
+    newsletter
 });
 
 export const UPDATE_NEWSLETTER_ERROR = 'UPDATE_NEWSLETTER_ERROR';
@@ -131,8 +131,8 @@ export const updateNewsletter = (id, updatedNewsletter) => (dispatch, getState) 
           updatedNewsletter
         })
     })
-        .then(res => normalizeResponseErrors(res))
-        .then(() => dispatch(updateNewsletterSuccess(id)))
+    .then(res => res.json())
+        .then(newsletter => dispatch(updateNewsletterSuccess(newsletter)))
         .catch(err => {
             dispatch(updateNewsletterError(err));
         });
