@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './header';
 import { connect } from 'react-redux';
-import { deleteNewsletter, fetchAllNewsletters,updateNewsletter } from '../actions/newsletter';
+import { deleteNewsletter, fetchAllNewsletters, updateNewsletter } from '../actions/newsletter';
 import { Redirect } from 'react-router-dom';
 import Bannerimg from '../logowhite.png'
 
@@ -12,21 +12,25 @@ export class infoPage extends React.Component {
     componentDidMount() {
         return this.props.dispatch(fetchAllNewsletters());
     }
+
+    componentDidUpdate(prevProps) {
+        if( this.props.selectedNewsletter.title !== prevProps.selectedNewsletter.title) {
+          console.log(this.props.selectedNewsletter.title, prevProps.selectedNewsletter.title,'CONSOLELOG')
+        }
+      }
+
     triggerDelete(id) {
         this.props.dispatch(deleteNewsletter(id))
-            .then(() => {
-                this.setState({
-                    submitted: true
-                })
-            })
+        this.setState({ Redirect: true, to: "/admindashboard" })
     }
     
-    handleSubmit = (e) => {
-        e.preventDefault()
-        const allValues={author: this.author.value, date: this.date.value}
-        this.props.dispatch(updateNewsletter(this.props.selectedNewsletter.id, allValues))
 
+     handleSubmit = (e) => {
+        e.preventDefault()
+        const allValues = { title: this.title.value, author: this.author.value, date: this.date.value, intro: this.intro.value, underwraps: this.underwraps.value, qaTitle: this.qaTitle.value, qaContent: this.qaContent.value, communitySpotlightFeature: this.communitySpotlightFeature.value,  communitySpotlightContent: this.communitySpotlightContent.value, fieldTitle: this.fieldTitle.value, fieldContent: this.fieldContent.value }
+        this.props.dispatch(updateNewsletter(this.props.selectedNewsletter.id, allValues))
         this.setState({ editMode: false })
+        this.forceUpdate();
     }
     editNewsletter = () => {
         return (
@@ -37,30 +41,84 @@ export class infoPage extends React.Component {
                 <Header title={this.props.selectedNewsletter.title} />
                 <div className="newsletterForm">
                     <form>
-                        <label>Author</label>
-                        <input
-                            name="author"
-                            defaultValue={this.props.selectedNewsletter.author}
-                            ref={(node)=>{this.author=node}}
-                        />
-                       
-                        <input
-                            name="date"
-                            label="Date"
-                            defaultValue={this.props.selectedNewsletter.date}
-                            ref={(node)=>{this.date=node}}
-                        />
+                        <label>Title:</label>
                         <input
                             name="title"
                             label="Title"
                             defaultValue={this.props.selectedNewsletter.title}
+                            ref={(node) => { this.title = node }}
                         />
+                        <label>Author:</label>
+                        <input
+                            name="author"
+                            label="Author"
+                            defaultValue={this.props.selectedNewsletter.author}
+                            ref={(node) => { this.author = node }}
+                        />
+                        <label>Date:</label>
+                        <input
+                            name="date"
+                            label="Date"
+                            defaultValue={this.props.selectedNewsletter.date}
+                            ref={(node) => { this.date = node }}
+                        />
+                        <label>Intro:</label>
                         <textarea
                             name="intro"
                             label="Intro"
                             defaultValue={this.props.selectedNewsletter.intro}
+                            ref={(node) => { this.intro = node }}
                         />
-                        <button type="submit" onClick={(e)=>{this.handleSubmit(e)}}>
+                        <label>Under Wraps:</label>
+                        <textarea
+                            name="underwraps"
+                            label="UnderWraps"
+                            defaultValue={this.props.selectedNewsletter.underwraps}
+                            ref={(node) => { this.underwraps = node }}
+                        />
+                        <label>Q & A Title:</label>
+                        <input
+                            name="qaTitle"
+                            label="qaTitle"
+                            defaultValue={this.props.selectedNewsletter.qaTitle}
+                            ref={(node) => { this.qaTitle = node }}
+                        />
+                        <label>Q & A Content:</label>
+                        <textarea
+                            name="qaContent"
+                            label="qaContent"
+                            defaultValue={this.props.selectedNewsletter.qaContent}
+                            ref={(node) => { this.qaContent = node }}
+                        />
+                        <label>Community Spotlight Feature:</label>
+                        <input
+                            name="communitySpotlightFeature"
+                            label="communitySpotlightFeature"
+                            defaultValue={this.props.selectedNewsletter.communitySpotlightFeature}
+                            ref={(node) => { this.communitySpotlightFeature = node }}
+                        />
+                        <label>Community Spotlight Content:</label>
+                        <textarea
+                            name="communitySpotlightContent"
+                            label="communitySpotlightContent"
+                            defaultValue={this.props.selectedNewsletter.communitySpotlightContent}
+                            ref={(node) => { this.communitySpotlightContent = node }}
+                        />
+                        <label>Field Title:</label>
+                        <input
+                            name="fieldTitle"
+                            label="fieldTitle"
+                            defaultValue={this.props.selectedNewsletter.fieldTitle}
+                            ref={(node) => { this.fieldTitle = node }}
+                        />
+                        <label>Field Content:</label>
+                        <textarea
+                            name="fieldContent"
+                            label="fieldContent"
+                            defaultValue={this.props.selectedNewsletter.fieldContent}
+                            ref={(node) => { this.fieldContent = node }}
+                        />
+                        <button type="submit" onClick={(e) => { this.handleSubmit(e) }}>
                             Update Newsletter</button>
                     </form>
                 </div>
@@ -70,7 +128,7 @@ export class infoPage extends React.Component {
 
 
     render() {
-        
+
         const id = this.props.selectedNewsletter ? this.props.selectedNewsletter.id : null;
         let deleteNewsletterButton;
         let editNewsletterButton;
@@ -87,8 +145,8 @@ export class infoPage extends React.Component {
         }
         return (
             <React.Fragment>
-
-                {this.state.submitted ? <Redirect to="/admindashboard" /> : null}
+                {this.state.Redirect ? <Redirect to={this.state.to} /> : null}
+                {/* {this.state.submitted ? <Redirect to="/admindashboard" /> : null} */}
                 <div className="banner">
                     <img src={Bannerimg}></img>
                 </div>
@@ -96,7 +154,6 @@ export class infoPage extends React.Component {
                 {this.state.editMode ? this.editNewsletter() : (
                     this.props.selectedNewsletter && (
                         <div className="info">
-
                             <dl>
                                 <dt>Title:</dt>
                                 <dd>{this.props.selectedNewsletter.title}</dd>

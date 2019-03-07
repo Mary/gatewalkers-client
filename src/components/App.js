@@ -48,9 +48,9 @@ export class App extends React.Component {
     render() {
         return (
             <div className="app">
+                <Route exact path="/admindashboard" component={AdminDashboard} />
                 <Route exact path="/" component={LandingPage} />
                 <Route exact path="/News" component={News} />
-                <Route exact path="/admindashboard" component={AdminDashboard} />
                 <Route exact path="/part-the-veil" component={PartTheVeil} />
                 <Route exact path="/view-newsletters" component={AdminViewNewsletters} />
                 <Route exact path="/create-newsletter" component={NewsletterFormContainer} />
