@@ -4,7 +4,7 @@ const initialState = {
     }
 
     
-    const word = (state = initialState, action) => {
+    const newsletter = (state = initialState, action) => {
         switch (action.type) {
             case 'CREATE_NEWSLETTER_SUCCESS':
                 return {
@@ -32,4 +32,4 @@ const initialState = {
     
     
     
-    export default word
+    export default newsletter
